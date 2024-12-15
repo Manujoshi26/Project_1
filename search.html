@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Interface</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            padding: 15px 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .dropdown {
+            position: relative;
+            flex: 1;
+        }
+
+        .dropdown-toggle {
+            padding: 12px 16px;
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dropdown-toggle:hover {
+            background: #1e5bb5;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            background: white;
+            color: black;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            z-index: 1000;
+            display: none;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .dropdown-item:hover {
+            background: #f4f4f4;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            flex: 2;
+        }
+
+        #searchInput {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #searchInput:focus {
+            border-color: #2575fc;
+        }
+
+        .search-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(135deg, #5a0fa6, #1d4baf);
+            transform: translateY(-2px);
+        }
+
+        /* Arrow Styling */
+        .dropdown-toggle::after {
+            content: '▼';
+            margin-left: auto;
+            font-size: 12px;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            .search-container {
+                flex-direction: column;
+                gap: 15px;
+                width: 90%;
+            }
+
+            .dropdown-toggle {
+                font-size: 14px;
+            }
+
+            .search-btn {
+                font-size: 14px;
+                padding: 10px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <div class="dropdown">
+            <button class="dropdown-toggle" id="dropdownButton">Everything</button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <div class="dropdown-item" onclick="selectCategory('Everything')">Everything</div>
+                <div class="dropdown-item" onclick="selectCategory('Software Development')">Software Development</div>
+                <div class="dropdown-item" onclick="selectCategory('Web Development')">Web Development</div>
+                <div class="dropdown-item" onclick="selectCategory('Data Analyst')">Data Analyst</div>
+                <div class="dropdown-item" onclick="selectCategory('IT Consultant')">IT Consultant</div>
+                <div class="dropdown-item" onclick="selectCategory('Network Administrator')">Network Administrator</div>
+            </div>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Type your search query here...">
+            <button class="search-btn" onclick="performSearch()">Search</button>
+        </div>
+    </div>
+
+    <script>
+        const dropdownButton = document.getElementById('dropdownButton');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        dropdownButton.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+
+        window.addEventListener('click', (event) => {
+            if (!event.target.closest('.dropdown')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
+        function selectCategory(category) {
+            dropdownButton.textContent = category;
+            dropdownMenu.classList.remove('show');
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value;
+            const category = dropdownButton.textContent;
+            alert(`Searching for "${query}" in "${category}" category.`);
+        }
+    </script>
+</body>
+</html>
